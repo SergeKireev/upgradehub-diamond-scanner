@@ -1,0 +1,5 @@
+node_modules/
+build/
+.env
+postgresql.cert
+config.postgres.yml
