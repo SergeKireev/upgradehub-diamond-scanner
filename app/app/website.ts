@@ -27,8 +27,12 @@ import { VerifiedStatus } from "../lib/interfaces/code_source";
 const conf = Config.load();
 
 const app = express();
-app.use(cors);
-app.options("*", cors);
+
+//@ts-ignore
+app.use(cors());
+//@ts-ignore
+app.options("*", cors());
+
 const allowCrossDomain = function (
   req: ExpressRequest,
   res: ExpressResponse,
@@ -164,8 +168,9 @@ async function launch() {
   await diamondCutRepository.init();
   await simpleDiffsRepository.init();
   await sourceCodeRepository.init();
-  app.listen(conf.app?.port || 3000, () =>
-    console.log("App listening on locahost:3000")
+  const port = conf.app?.port || 3000;
+  app.listen(port, () =>
+    console.log(`App listening on locahost:${port}`)
   );
 }
 launch();
