@@ -18,6 +18,11 @@ run using:
 
 (See `App Configuration` section)
 
+## Using Docker
+
+`docker build -t diamond-scanner -f docker/Dockerfile .`
+`docker run -itd diamond-scanner`
+
 # Configuration
 ## Dot env
 If postgresql is used as a database, provide password for postgres as indicated below, in `.env` file at the root of the project
