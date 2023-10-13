@@ -11,18 +11,18 @@ import {
   Status,
   STATUS_NOK,
   STATUS_OK,
-} from "../lib/interfaces/response";
+} from "../../lib/interfaces/response";
 import { ApiName } from "ethereum-sources-downloader";
-import { CodeRepository } from "../lib/service/repository/code/code_repository";
-import { DiamondEvent } from "../lib/interfaces/block_data";
-import { DiamondEventsRepository } from "../lib/service/repository/events/diamond_events_repository";
-import { SimpleDiff } from "../lib/interfaces/simple_diff";
-import { SimpleDiffRepository } from "../lib/service/repository/diff/simple_diff_repository";
-import { UpgradesDisplayView } from "../lib/service/repository/diff/upgrades_view";
-import { PostgresClient } from "../lib/io/db/postgres_client";
-import { SqliteClient } from "../lib/io/db/sqlite_client";
-import { Config } from "../config/config_handler";
-import { VerifiedStatus } from "../lib/interfaces/code_source";
+import { CodeRepository } from "../../lib/service/repository/code/code_repository";
+import { DiamondEvent } from "../../lib/interfaces/block_data";
+import { DiamondEventsRepository } from "../../lib/service/repository/events/diamond_events_repository";
+import { SimpleDiff } from "../../lib/interfaces/simple_diff";
+import { SimpleDiffRepository } from "../../lib/service/repository/diff/simple_diff_repository";
+import { UpgradesDisplayView } from "../../lib/service/repository/diff/upgrades_view";
+import { PostgresClient } from "../../lib/io/db/postgres_client";
+import { SqliteClient } from "../../lib/io/db/sqlite_client";
+import { Config } from "../../config/config_handler";
+import { VerifiedStatus } from "../../lib/interfaces/code_source";
 
 const conf = Config.load();
 
@@ -46,7 +46,7 @@ const allowCrossDomain = function (
 app.use(allowCrossDomain);
 app.use(express.json());
 
-const staticPath = path.join(__dirname, "..", "..", "web");
+const staticPath = path.join(__dirname, "..", "..", "..", "web");
 app.use(express.static(staticPath));
 
 const dbClient =
@@ -164,13 +164,10 @@ app.get("/*", async (req: ExpressRequest, res: ExpressResponse) => {
   res.sendFile(path.join(staticPath, "index.html"));
 });
 
-async function launch() {
+export async function launch() {
   await diamondCutRepository.init();
   await simpleDiffsRepository.init();
   await sourceCodeRepository.init();
   const port = conf.app?.port || 3000;
-  app.listen(port, () =>
-    console.log(`App listening on locahost:${port}`)
-  );
+  app.listen(port, () => console.log(`App listening on locahost:${port}`));
 }
-launch();
