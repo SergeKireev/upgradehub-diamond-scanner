@@ -1,27 +1,40 @@
 # Upgradehub Diamond Scanner
 
+## Using Docker
+
+```sh
+  $ docker build -t diamond-scanner -f docker/Dockerfile .
+  $ docker run -itd diamond-scanner
+```
+
+then go open:
+`http://${docker_ip}:3000/diamond/${network}/${address}`
+
+in your favorite browser to access the code diff history for the diamond proxy
+
 ## Setup
 run:
-`npm i && tsc`
+```sh
+  $ npm i && tsc
+```
 
 ## Standalone `DiamondCut` scanner
 
 run using:
-`node build/app/app/diamond_scan_process.js`
+```sh
+  $ node build/app/app/diamond_scan_process.js
+```
 
 (See `Scan Configuration` section)
 
 ## Web api server for upgradehub-frontend
 
 run using:
-`node build/app/app/website.js`
+```sh
+  $ node build/app/app/website.js
+```
 
 (See `App Configuration` section)
-
-## Using Docker
-
-`docker build -t diamond-scanner -f docker/Dockerfile .`
-`docker run -itd diamond-scanner`
 
 # Configuration
 ## Dot env
